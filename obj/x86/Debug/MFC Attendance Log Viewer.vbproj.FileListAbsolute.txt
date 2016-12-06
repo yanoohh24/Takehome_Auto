@@ -1,0 +1,48 @@
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\bin\Debug\MFC Attendance Log Viewer.exe
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\bin\Debug\MFC Attendance Log Viewer.pdb
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\bin\Debug\MFC Attendance Log Viewer.xml
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogin.resources
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogsViewer.resources
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.Resources.resources
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.exe
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.xml
+D:\Project\HeadCount\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.pdb
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\bin\Debug\MFC Attendance Log Viewer.exe
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\bin\Debug\MFC Attendance Log Viewer.pdb
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\bin\Debug\MFC Attendance Log Viewer.xml
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogin.resources
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogsViewer.resources
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.Resources.resources
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.exe
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.xml
+D:\Project\MFC Attendance Log Viewer\MFC Attendance Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.pdb
+D:\Project\HRWEB Log Viewer\bin\Debug\MFC Attendance Log Viewer.exe
+D:\Project\HRWEB Log Viewer\bin\Debug\MFC Attendance Log Viewer.pdb
+D:\Project\HRWEB Log Viewer\bin\Debug\MFC Attendance Log Viewer.xml
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogin.resources
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogsViewer.resources
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\MFC_Attendance_Log_Viewer.Resources.resources
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.exe
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.xml
+D:\Project\HRWEB Log Viewer\obj\x86\Debug\MFC Attendance Log Viewer.pdb
+D:\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.exe
+D:\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.pdb
+D:\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.xml
+D:\SMSAutoReply\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogin.resources
+D:\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogsViewer.resources
+D:\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.Resources.resources
+D:\SMSAutoReply\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\SMSAutoReply\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.exe
+D:\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.xml
+D:\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.pdb

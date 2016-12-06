@@ -1,0 +1,121 @@
+D:\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.exe
+D:\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.pdb
+D:\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.xml
+D:\SMSAutoReply\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogin.resources
+D:\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmAutoSMSReply.resources
+D:\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.Resources.resources
+D:\SMSAutoReply\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\SMSAutoReply\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.exe
+D:\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.xml
+D:\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.pdb
+C:\Users\admin\Desktop\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.exe
+C:\Users\admin\Desktop\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.pdb
+C:\Users\admin\Desktop\SMSAutoReply\bin\Debug\MFC Attendance Log Viewer.xml
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmGSMSetting.resources
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmLogin.resources
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.frmAutoSMSReply.resources
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC_Attendance_Log_Viewer.Resources.resources
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.exe
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.xml
+C:\Users\admin\Desktop\SMSAutoReply\obj\x86\Debug\MFC Attendance Log Viewer.pdb
+D:\Project\BeloSMS\SMSAutoReply\bin\Debug\Belo Medical Group SMS.exe
+D:\Project\BeloSMS\SMSAutoReply\bin\Debug\Belo Medical Group SMS.pdb
+D:\Project\BeloSMS\SMSAutoReply\bin\Debug\Belo Medical Group SMS.xml
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo_Medical_Group_SMS.frmGSMSetting.resources
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo_Medical_Group_SMS.frmLogin.resources
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo_Medical_Group_SMS.frmAutoSMSReply.resources
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo_Medical_Group_SMS.Resources.resources
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo Medical Group SMS.exe
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo Medical Group SMS.xml
+D:\Project\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo Medical Group SMS.pdb
+D:\Project\BeloSMS\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo Medical Group SMS.exe
+D:\Project\BeloSMS\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo Medical Group SMS.xml
+D:\Project\BeloSMS\BeloSMS\SMSAutoReply\obj\x86\Debug\Belo Medical Group SMS.pdb
+D:\BeloProject\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe.config
+D:\BeloProject\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
+D:\BeloProject\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
+D:\BeloProject\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmCatchError.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmGSMSetting.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmIssuedCard.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmLogin.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmAutoSMSReply.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Resources.resources
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbproj.GenerateResource.Cache
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.exe
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.xml
+D:\BeloProject\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.pdb
+D:\Project\VB\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe.config
+D:\Project\VB\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
+D:\Project\VB\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
+D:\Project\VB\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmCatchError.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmGSMSetting.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmIssuedCard.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmLogin.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmAutoSMSReply.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Resources.resources
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbproj.GenerateResource.Cache
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.exe
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.xml
+D:\Project\VB\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.pdb
+D:\Project\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe.config
+D:\Project\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
+D:\Project\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
+D:\Project\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmCatchError.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmGSMSetting.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmIssuedCard.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmLogin.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmAutoSMSReply.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Resources.resources
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbproj.GenerateResource.Cache
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.exe
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.xml
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.pdb
+D:\Project\ian\new\SMSAutoReply\bin\Debug\MetroFramework.dll
+D:\Project\ian\new\SMSAutoReply\bin\Debug\MetroFramework.Fonts.dll
+D:\Project\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbprojResolveAssemblyReference.cache
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe.config
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.exe
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.xml
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.pdb
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbprojResolveAssemblyReference.cache
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmCatchError.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmGSMSetting.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmIssuedCard.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmLogin.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmAutoSMSReply.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Resources.resources
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbproj.GenerateResource.Cache
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
+C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
+C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
+C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe.config
+C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
+C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmCatchError.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmGSMSetting.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmIssuedCard.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmLogin.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.frmAutoSMSReply.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Resources.resources
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbproj.GenerateResource.Cache
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.exe
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.xml
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.pdb
+C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbprojResolveAssemblyReference.cache

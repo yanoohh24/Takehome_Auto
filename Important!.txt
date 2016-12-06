@@ -1,0 +1,32 @@
+Case 1
+        Toolbar1.Buttons(5).Enabled = False 'Resend All
+        SQLquery = "SELECT * FROM Messages WHERE Direction=1 AND Type=2 ORDER BY ID DESC"
+        Call ListSMS_In
+        
+    Case 2
+        If ListView1.ListItems.Count > 0 Then
+            Toolbar1.Buttons(5).Enabled = True 'Resend All
+        Else
+            Toolbar1.Buttons(5).Enabled = False 'Resend All
+        End If
+        
+        SQLquery = "SELECT * FROM Messages WHERE Direction=2 AND Type=2 AND StatusDetails BETWEEN 210 AND 212 ORDER BY ID DESC"
+        Call ListSMS_Out
+        
+    Case 3
+        cmdNext.Enabled = True
+        NextCount = 500
+        NextTotal = NextCount
+        
+        
+        Toolbar1.Buttons(5).Enabled = False 'Resend All
+        SQLquery = "SELECT * FROM Messages WHERE Direction=2 AND Type=2 AND StatusDetails BETWEEN 220 AND 221 ORDER BY ID DESC LIMIT 0,500"
+        Call ListSMS_Out
+        
+        lbNextTotal.Caption = NextTotal
+    Case 4
+        Toolbar1.Buttons(5).Enabled = False 'Resend All
+        SQLquery = "SELECT * FROM Messages WHERE Direction=2 AND Type=2 AND StatusDetails BETWEEN 200 AND 202 ORDER BY ID DESC"
+        Call ListSMS_Out
+        
+End Select
