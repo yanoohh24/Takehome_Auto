@@ -103,8 +103,8 @@ C:\Ian Backup Source Codes\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbp
 C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
 C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
 C:\Ian Backup Source Codes\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
-C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
 C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe.config
+C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.exe
 C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.pdb
 C:\Projects\ian\new\SMSAutoReply\bin\Debug\BeloMedicalGroupSMS.xml
 C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources

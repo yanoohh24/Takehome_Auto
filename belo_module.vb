@@ -291,9 +291,9 @@ confirmed:
 
 
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
             End If
 
             Dim connection3 As New MySqlConnection(connStrBMG)
@@ -316,9 +316,9 @@ confirmed:
 
 
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled'"
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled'"
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled'"
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled'"
             End If
 
 
@@ -421,12 +421,12 @@ noappt:
 
                             Case Else
 updte:
-                                sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid=" & pxId & " AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
+                                sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                 BMG_UPDATE(sql)
 
 
                                 If yesaccept = "accept" Then
-                                    sql = "UPDATE " & AppointmentDatabaseName & " SET sts = 'Confirmed' WHERE Patientid=" & pxId & " AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
+                                    sql = "UPDATE " & AppointmentDatabaseName & " SET sts = 'Confirmed' WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                     'sql = "UPDATE messages_sms SET sts = 'Confirmed' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                                     BMG_UPDATE(sql)
                                 End If
@@ -501,9 +501,9 @@ change_stats:
 
 
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
             End If
             Dim connection4 As New MySqlConnection(connStrBMG)
             Dim cmd4 As New MySqlCommand(query, connection4)
@@ -540,9 +540,9 @@ change_stats:
             'End If
 
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled' "
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid=" & pxId & " and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled' "
             End If
             Dim connection2 As New MySqlConnection(connStrBMG)
             Dim cmd2 As New MySqlCommand(query, connection2)
@@ -596,7 +596,7 @@ change_stats:
                         End If
 
 
-                        sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid=" & pxId & " AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
+                        sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
                         BMG_UPDATE(sql)
 
                         sql = "INSERT INTO `appointment_logs` SET appointment_id='" & AppointmentId & "', branch='" & appoinmentBranch & "', original_status='" & appoinmentStatus & "', " _

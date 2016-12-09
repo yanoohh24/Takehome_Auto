@@ -509,7 +509,7 @@ Approved_branch:
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
 
-                        If pxInf.IDNO > 0 Then
+                        If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointment(smsSender, False, pxInf.IDNO)
 
@@ -618,8 +618,8 @@ Approved_branch:
 
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
-
-                        If pxInf.IDNO > 0 Then
+                      
+                        If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointment(smsSender, True, pxInf.IDNO)
 
@@ -842,7 +842,7 @@ Approved_branch:
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
 
-                        If pxInf.IDNO > 0 Then
+                        If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointmentTomorrow(smsSender, False, pxInf.IDNO)
 
@@ -982,7 +982,7 @@ YES_TO_ACCEPT:
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
 
-                        If pxInf.IDNO > 0 Then
+                        If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointmentTomorrow(smsSender, True, pxInf.IDNO)
 
@@ -1246,7 +1246,7 @@ Jump_on_case_final:
 
         Dim SMSpxMobile As String = Mid(pxMobile, 4, 10)
 
-        sql = "SELECT PatientID, CONCAT(firstname, ' ', lastname) pxName, gender FROM `patient_info` WHERE REPLACE(REPLACE(REPLACE(mobile,' ',''),'-',''),'.','') LIKE '%" & Replace(SMSpxMobile, "'", "\'") & "%'"
+        sql = "SELECT PatientID, CONCAT(firstname, ' ', lastname) pxName, gender FROM `patient_info` WHERE REPLACE(REPLACE(mobile,' ',''),'.','') LIKE '%" & Replace(SMSpxMobile, "'", "\'") & "%'"
         'MsgBox(sql)
         Dim connection As New MySqlConnection(connStrBMG)
         Dim cmd As New MySqlCommand(sql, connection)
@@ -1268,6 +1268,7 @@ Jump_on_case_final:
             Patient_ID = Destination.ID
             Destination.Name = ""
             Destination.Gender = ""
+            Destination.IDNO = ""
         End If
 
         connection.Close()
