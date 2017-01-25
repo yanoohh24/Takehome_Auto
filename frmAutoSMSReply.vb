@@ -38,6 +38,8 @@ Public Class frmAutoSMSReply
         Dim Code As String
         Dim Name As String
         Dim db_name As String
+
+ 
     End Structure
 
     Function CommandXpertSMS(ByVal msg As String, ByVal Validity As Integer, ByVal branch As String, ByVal PatientID As String, ByVal EmpMobile As String) As Integer
@@ -768,7 +770,7 @@ Approved_branch:
                                 '& "To reconfirm your appointment, you may call 819 - BELO (2356)" & vbNewLine _
                                 '& "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 '& "This is a system generated message." & vbNewLine & vbNewLine _
-                                '& "-" & BrnchInfo.Name & ", Belo Medical Group."
+                                '& "-" & BrnchInfo.Name & ", Belo Medical Group." 
 
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ". we would like to inform you that your requested appointment for today at " & AppointmentScheduleTime & " has been cancelled based on your previous response to our SMS confirmation." & vbNewLine _
@@ -975,7 +977,7 @@ Approved_branch:
                         End If
 
 
-                        'Case "01 ACCEPTqwe", "04 ACCEPTqwe", "07 ACCEPTqwe"
+                        ' Case "01 ACCEPTqwe", "04 ACCEPTqwe", "07 ACCEPTqwe"
                     Case "01 ACCEPT", "02 ACCEPT", "03 ACCEPT", "04 ACCEPT", "05 ACCEPT", "06 ACCEPT", "07 ACCEPT", "08 ACCEPT", "09 ACCEPT", "10 ACCEPT", "11 ACCEPT", "12 ACCEPT", "13 ACCEPT", "14 ACCEPT", "15 ACCEPT", "22 ACCEPT"
 YES_TO_ACCEPT:
                         yestoaccept = False
@@ -1274,6 +1276,7 @@ Jump_on_case_final:
         connection.Close()
     End Function
 
+
     Function BranchCode(ByRef Destination As BranchName_DB, ByVal BrchCode As String) As String
         Try
             Dim sql As String = ""
@@ -1285,7 +1288,7 @@ Jump_on_case_final:
 
             BrchCode = Replace(BrchCode.Trim, "'", "\'")
 
-            sql = "SELECT code,name,db_name FROM ref_branch WHERE code='" & BrchCode & "'"
+            sql = "SELECT ip,username,password,port,code,name,db_name FROM ref_branch WHERE code='" & BrchCode & "'"
 
             Dim connection As New MySqlConnection(connStrBMG)
             Dim cmd As New MySqlCommand(sql, connection)
@@ -1299,6 +1302,11 @@ Jump_on_case_final:
                     Destination.Code = reader.Item("code").ToString()
                     Destination.Name = reader.Item("name").ToString()
                     Destination.db_name = reader.Item("db_name").ToString()
+
+                    branch_ip = reader.Item("ip").ToString()
+                    branch_un = reader.Item("username").ToString()
+                    branch_pass = reader.Item("password").ToString()
+                    branch_port = reader.Item("port").ToString()
                     BranchCode = Destination.db_name
                 End While
             Else
@@ -1811,4 +1819,7 @@ Jump_on_case_final:
     Private Sub ToolStrip1_ItemClicked(sender As System.Object, e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles ToolStrip1.ItemClicked
 
     End Sub
+
+  
+  
 End Class

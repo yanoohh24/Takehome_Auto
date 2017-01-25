@@ -57,6 +57,7 @@ Partial Class frmAutoSMSReply
         Me.btRestartServiceSMS = New System.Windows.Forms.Button()
         Me.btResendAll = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -344,11 +345,21 @@ Partial Class frmAutoSMSReply
         Me.Panel1.TabIndex = 73
         Me.Panel1.Visible = False
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(162, 223)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 74
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmAutoSMSReply
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(565, 475)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btSearch)
         Me.Controls.Add(Me.lbTime)
@@ -407,4 +418,5 @@ End Sub
     Friend WithEvents btRestartServiceSMS As System.Windows.Forms.Button
     Friend WithEvents btResendAll As System.Windows.Forms.Button
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

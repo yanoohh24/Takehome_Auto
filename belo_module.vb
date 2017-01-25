@@ -2,6 +2,13 @@
 Imports System.IO
 
 Module belo_module
+
+
+    Public branch_ip As String = ""
+    Public branch_un As String
+    Public branch_pass As String = ""
+    Public branch_port As String = ""
+
     Public AboutBelo As String = "For 24 years, Belo Medical Group remains the number 1 medical aesthetic ambulatory clinic in the Philippines.It started in 1990, when founder, Dr. Vicki Belo opened her first 44 sqm clinic in Medical Towers, " _
     & "Makati. Belo Medical group has pioneered in so many beauty breakthroughs such as Liposuction, surgical and non-surgical beauty procedures, lasers and more. - See more at: http://www.belomed.com/about"
     Public AppointmentSchedule As String = ""
@@ -154,10 +161,10 @@ Module belo_module
                 End If
                 reader.Close()
             Else
-              
-                    AppointmentSchedule = ""
-                    returnData = "x"
-                    connection.Close()
+
+                AppointmentSchedule = ""
+                returnData = "x"
+                connection.Close()
 
             End If
         Catch ex As Exception
@@ -229,8 +236,8 @@ confirmed:
 
             Else
                 AppointmentSchedule = ""
-                    returnData = "x"
-                    connection.Close()
+                returnData = "x"
+                connection.Close()
             End If
 
         Catch ex As Exception
@@ -424,11 +431,17 @@ updte:
                                 sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                 BMG_UPDATE(sql)
 
+                                checkBranch(branchCode, sql)
+
 
                                 If yesaccept = "accept" Then
                                     sql = "UPDATE " & AppointmentDatabaseName & " SET sts = 'Confirmed' WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                     'sql = "UPDATE messages_sms SET sts = 'Confirmed' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                                     BMG_UPDATE(sql)
+
+
+                                    checkBranch(branchCode, sql)
+
                                 End If
 
                                 sql = "INSERT INTO `appointment_logs` SET appointment_id='" & AppointmentId & "', branch='" & appoinmentBranch & "', original_status='" & confirmationStatus.Trim & "', " _
@@ -453,6 +466,20 @@ change_stats:
         Return appoinmentStatus
 
     End Function
+
+    Public Sub checkBranch(branchcode As String, sql As String)
+        Dim TextLine As String
+        Dim objReader As New System.IO.StreamReader(Application.StartupPath & "\branches.dll")
+        'check if the sender is the modem number
+        Do While objReader.Peek() <> -1
+            TextLine = objReader.ReadLine().Trim & vbNewLine
+            'IF SENDER EQUAL THIS NUMBER, RETURN THE FUNCTION   
+            If branchcode = TextLine.Trim Then
+                BMG_UPDATE_BRANCH(Sql)
+            End If
+        Loop
+
+    End Sub
     Function appointmentBranch_database_cancelled(ByVal branchCode As String, ByVal AppointmentId As String, ByVal AppointmentDate As String, ByVal pxId As String) As String
         Dim tomorrow As String = CDate(FormatDateTime(DateTime.Now.AddDays(+1), DateFormat.ShortDate)).ToString("yyyy-MM-dd")
         Dim AppointmentDatabaseName As String = ""
@@ -593,11 +620,14 @@ change_stats:
                         If yesaccept = "accept" Then
                             sql = "UPDATE messages_sms SET sts = 'Cancelled' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                             BMG_UPDATE(sql)
+                            checkBranch(branchCode, sql)
                         End If
 
 
                         sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
                         BMG_UPDATE(sql)
+                     
+                        checkBranch(branchCode, sql)
 
                         sql = "INSERT INTO `appointment_logs` SET appointment_id='" & AppointmentId & "', branch='" & appoinmentBranch & "', original_status='" & appoinmentStatus & "', " _
                         & " new_status='Cancelled', updated_by='Belo SMS', time_created=DATE_FORMAT(NOW(),'%l:%i:%s %p'), date_created=DATE(NOW())"
@@ -643,6 +673,26 @@ change_stats:
         Try
             Dim rowsEffected As Integer = 0
             Dim connection As New MySqlConnection(connStrBMG)
+            Dim cmd As New MySqlCommand(query, connection)
+
+            connection.Open()
+            rowsEffected = cmd.ExecuteNonQuery()
+            connection.Close()
+
+            Return rowsEffected
+        Catch ex As Exception
+            FFCatchError.txtCatchErrors.Text = FFCatchError.txtCatchErrors.Text & ex.Message & vbNewLine
+        End Try
+
+    End Function
+
+
+
+    Function BMG_UPDATE_BRANCH(ByVal query As String)
+
+        Try
+            Dim rowsEffected As Integer = 0
+            Dim connection As New MySqlConnection("Database=belo_database;Data Source= " & branch_ip & ";User Id=" & branch_un & " ;Password= " & branch_pass & " ;Port=" & branch_port & ";UseCompression=True;Connection Timeout=28800;Convert Zero Datetime=True")
             Dim cmd As New MySqlCommand(query, connection)
 
             connection.Open()
