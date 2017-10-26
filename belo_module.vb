@@ -162,10 +162,23 @@ Module belo_module
                 reader.Close()
             Else
 
-                AppointmentSchedule = ""
-                returnData = "x"
-                connection.Close()
 
+                query = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') AS appointment_date, appointment_time, remarks,doc FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND DATE(appointment_date) =CURDATE() + INTERVAL 1 DAY AND appointment_id>0 AND remarks LIKE '%tomorrow%'"
+
+                Dim connection2 As New MySqlConnection(connStrBMG)
+                Dim cmd2 As New MySqlCommand(query, connection2)
+                Dim reader2 As MySqlDataReader
+
+                connection2.Open()
+                reader2 = cmd2.ExecuteReader()
+                If reader2.HasRows = True Then
+                    AppointmentSchedule = ""
+                    returnData = "invalid_keyword"
+                Else
+                    AppointmentSchedule = ""
+                    returnData = "x"
+                End If
+                connection.Close()
             End If
         Catch ex As Exception
             FFCatchError.txtCatchErrors.Text = FFCatchError.txtCatchErrors.Text & ex.Message & vbNewLine
@@ -235,8 +248,24 @@ confirmed:
                 End If
 
             Else
-                AppointmentSchedule = ""
-                returnData = "x"
+
+                query = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') AS appointment_date, appointment_time, remarks,doc FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND DATE(appointment_date) =CURDATE() AND appointment_id>0 AND remarks LIKE '%today%'"
+                   
+                Dim connection2 As New MySqlConnection(connStrBMG)
+                Dim cmd2 As New MySqlCommand(query, connection2)
+                Dim reader2 As MySqlDataReader
+
+                connection2.Open()
+                reader2 = cmd2.ExecuteReader()
+                If reader2.HasRows = True Then
+                    AppointmentSchedule = ""
+                    returnData = "invalid_keyword"
+                    connection.Close()
+                Else
+                    AppointmentSchedule = ""
+                    returnData = "x"
+                End If
+             
                 connection.Close()
             End If
 
@@ -328,7 +357,6 @@ confirmed:
                 query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled'"
             End If
 
-
             Dim connection2 As New MySqlConnection(connStrBMG)
             Dim cmd2 As New MySqlCommand(query, connection2)
             Dim reader2 As MySqlDataReader
@@ -348,9 +376,9 @@ confirmed:
             End If
 
             If yesaccept = "yes" Then
-                query = "SELECT appointment_status, confirmation_status,branch,date_updated,sts FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & ""
+                query = "SELECT appointment_status, confirmation_status,branch,date_updated,sts FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " ORDER BY id DESC"
             Else
-                query = "SELECT appointment_status, confirmation_status,branch,date_updated,sts FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and appointment_date = '" & tomorrow & "'"
+                query = "SELECT appointment_status, confirmation_status,branch,date_updated,sts FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and appointment_date = '" & tomorrow & "' ORDER BY id DESC"
             End If
 
             Dim today As String = CDate(FormatDateTime(DateTime.Now, DateFormat.ShortDate)).ToString("yyyy-MM-dd")
@@ -432,16 +460,11 @@ updte:
                                 BMG_UPDATE(sql)
 
                                 checkBranch(branchCode, sql)
-
-
                                 If yesaccept = "accept" Then
                                     sql = "UPDATE " & AppointmentDatabaseName & " SET sts = 'Confirmed' WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                     'sql = "UPDATE messages_sms SET sts = 'Confirmed' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                                     BMG_UPDATE(sql)
-
-
                                     checkBranch(branchCode, sql)
-
                                 End If
 
                                 sql = "INSERT INTO `appointment_logs` SET appointment_id='" & AppointmentId & "', branch='" & appoinmentBranch & "', original_status='" & confirmationStatus.Trim & "', " _
@@ -470,10 +493,10 @@ change_stats:
     Public Sub checkBranch(branchcode As String, sql As String)
         Dim TextLine As String
         Dim objReader As New System.IO.StreamReader(Application.StartupPath & "\branches.dll")
-        'check if the sender is the modem number
+
         Do While objReader.Peek() <> -1
             TextLine = objReader.ReadLine().Trim & vbNewLine
-            'IF SENDER EQUAL THIS NUMBER, RETURN THE FUNCTION   
+
             If branchcode = TextLine.Trim Then
                 BMG_UPDATE_BRANCH(Sql)
             End If
@@ -710,7 +733,9 @@ change_stats:
         Dim Qone As String = "INSERT INTO messages_archive (ID, Direction, TYPE, StatusDetails,STATUS,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
         & " ScheduledTimeSecs,LastUpdateSecs,Sender,Recipient,SUBJECT,BodyFormat,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash,sysForwarded, " _
         & " sysGwReference,Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks) " _
-        & " SELECT * FROM `messages` WHERE DATE(doc)<DATE(NOW()) AND id NOT IN (SELECT id FROM `messages_archive` WHERE DATE(doc)<DATE(NOW()))"
+        & " SELECT ID, Direction, TYPE, StatusDetails,STATUS,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
+        & " ScheduledTimeSecs,LastUpdateSecs,Sender,Recipient,SUBJECT,BodyFormat,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash,sysForwarded, " _
+        & " sysGwReference,Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks FROM `messages` WHERE DATE(doc)<DATE(NOW()) AND id NOT IN (SELECT id FROM `messages_archive` WHERE DATE(doc)<DATE(NOW()))"
 
         On Error Resume Next
 

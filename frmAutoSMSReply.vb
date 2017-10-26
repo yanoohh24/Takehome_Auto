@@ -330,15 +330,13 @@ Public Class frmAutoSMSReply
         'Else
         '    Exit Function
         'End If
-
 exp_number:
         '--------------------------
-
         '------Updates by ian 07/04/16--------
         'read exemption mobile numbers  
         Dim TextLine As String
         Dim objReader As New System.IO.StreamReader(Application.StartupPath & "\Modem_no.dll")
-
+        
         'check if the sender is the modem number
         Do While objReader.Peek() <> -1
             TextLine = objReader.ReadLine().Trim & vbNewLine
@@ -350,8 +348,7 @@ exp_number:
             End If
         Loop
 
-        '-----end of updates-----
-
+        '-----end of updates----
 
         If SMS Is Nothing Then
             CommandXpertSMS(smsFormat, 0, "", "", smsSender)
@@ -421,18 +418,24 @@ exp_number:
                         Dim updateSMSAlert As String = smsSender
                         updateSMSAlert = Mid(smsSender, 4, 10)
 
-                        If SMS_Alert_OFF(updateSMSAlert) > 0 Then
-                            SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
-                            & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
-                            & "This is a system generated message. " & vbNewLine & vbNewLine _
-                            & FooterInquiries
-                        Else
-                            SMS_out = "Your " & smsSender & " mobile number is not registed on our database." & vbNewLine _
-                            & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
-                            & "This is a system generated message. " & vbNewLine & vbNewLine _
-                            & FooterInquiries
+                        'If SMS_Alert_OFF(updateSMSAlert) > 0 Then
+                        '    SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
+                        '    & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
+                        '    & "This is a system generated message. " & vbNewLine & vbNewLine _
+                        '    & FooterInquiries
+                        'Else
+                        '    SMS_out = "Your " & smsSender & " mobile number is not registed on our database." & vbNewLine _
+                        '    & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
+                        '    & "This is a system generated message. " & vbNewLine & vbNewLine _
+                        '    & FooterInquiries
 
-                        End If
+                        'End If
+
+                         SMS_Alert_OFF(updateSMSAlert) > 0 Then
+                            SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
+                                      & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
+                                      & "This is a system generated message. " & vbNewLine & vbNewLine _
+                                      & FooterInquiries
 
                         messages_sms_in(SMS.Trim, "", pxInf.ID, smsSender)
                         messages_sms_out(SMS_out.Trim, "", pxInf.ID, smsSender)
@@ -515,6 +518,10 @@ Approved_branch:
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointment(smsSender, False, pxInf.IDNO)
 
+                            If check_appointment = "invalid_keyword" Then
+                                GoTo Jump_on_case_final
+                            End If
+
                             If check_appointment = "CANCELLED_1" And pxappt_count = 1 Then
 
                                 'CANCELLED_1
@@ -527,7 +534,7 @@ Approved_branch:
                            & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                            & "This is a system generated message." & vbNewLine & vbNewLine _
                            & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                           & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                           & FooterInquiries
 
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -546,7 +553,7 @@ Approved_branch:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -569,7 +576,7 @@ Approved_branch:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -587,7 +594,7 @@ Approved_branch:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -597,12 +604,13 @@ Approved_branch:
                                 Exit Function
 
                             Else
+                                GoTo Jump_on_case_final
                                 'NO Appointment
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that you do not have any appointment for today." & vbNewLine _
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -625,6 +633,10 @@ Approved_branch:
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointment(smsSender, True, pxInf.IDNO)
 
+                            If check_appointment = "invalid_keyword" Then
+                                GoTo Jump_on_case_final
+                            End If
+
                             If check_appointment = "CONFIRMED_1" And pxappt_count = 1 Then
 
                                 'CONFIRMED_1
@@ -638,7 +650,7 @@ Approved_branch:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -656,7 +668,7 @@ Approved_branch:
                               & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                               & "This is a system generated message." & vbNewLine & vbNewLine _
                               & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -677,7 +689,7 @@ Approved_branch:
                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                & "This is a system generated message." & vbNewLine & vbNewLine _
                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -693,7 +705,7 @@ Approved_branch:
                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                & "This is a system generated message." & vbNewLine & vbNewLine _
                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -714,7 +726,7 @@ Approved_branch:
                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                & "This is a system generated message." & vbNewLine & vbNewLine _
                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -732,7 +744,7 @@ Approved_branch:
                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                & "This is a system generated message." & vbNewLine & vbNewLine _
                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -754,7 +766,7 @@ Approved_branch:
                            & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                            & "This is a system generated message." & vbNewLine & vbNewLine _
                            & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -777,7 +789,7 @@ Approved_branch:
                            & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                            & "This is a system generated message." & vbNewLine & vbNewLine _
                            & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -795,7 +807,7 @@ Approved_branch:
                            & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                            & "This is a system generated message." & vbNewLine & vbNewLine _
                            & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -811,7 +823,7 @@ Approved_branch:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -821,12 +833,13 @@ Approved_branch:
                                 Exit Function
 
                             Else
+                                GoTo Jump_on_case_final
                                 'NO Appointment
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that you do not have any appointment for today." & vbNewLine _
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -848,6 +861,10 @@ Approved_branch:
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointmentTomorrow(smsSender, False, pxInf.IDNO)
 
+                            If check_appointment = "invalid_keyword" Then
+                                GoTo Jump_on_case_final
+                            End If
+
                             If check_appointment = "CANCELLED_1" And pxappt_count = 1 Then
 
                                 'CANCELLED_1
@@ -860,7 +877,7 @@ Approved_branch:
                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                & "This is a system generated message." & vbNewLine & vbNewLine _
                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -876,7 +893,7 @@ Approved_branch:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -897,7 +914,7 @@ Approved_branch:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -913,7 +930,7 @@ Approved_branch:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -930,7 +947,7 @@ Approved_branch:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -947,7 +964,7 @@ Approved_branch:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -958,12 +975,13 @@ Approved_branch:
 
 
                             Else
+                                GoTo Jump_on_case_final
                                 'NO Appointment
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & " we would like to inform you that you do not have any appointment for tomorrow." & vbNewLine _
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -988,6 +1006,10 @@ YES_TO_ACCEPT:
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointmentTomorrow(smsSender, True, pxInf.IDNO)
 
+                            If check_appointment = "invalid_keyword" Then
+                                GoTo Jump_on_case_final
+                            End If
+
                             If check_appointment = "CONFIRMED_1" And pxappt_count = 1 Then
 
                                 'CONFIRMED_1
@@ -995,7 +1017,7 @@ YES_TO_ACCEPT:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1012,7 +1034,7 @@ YES_TO_ACCEPT:
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1035,7 +1057,7 @@ YES_TO_ACCEPT:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1057,7 +1079,7 @@ YES_TO_ACCEPT:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1078,7 +1100,7 @@ YES_TO_ACCEPT:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1096,7 +1118,7 @@ YES_TO_ACCEPT:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1117,7 +1139,7 @@ YES_TO_ACCEPT:
                            & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                            & "This is a system generated message." & vbNewLine & vbNewLine _
                            & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1133,7 +1155,7 @@ YES_TO_ACCEPT:
                            & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                            & "This is a system generated message." & vbNewLine & vbNewLine _
                            & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1149,7 +1171,7 @@ YES_TO_ACCEPT:
                              & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                              & "This is a system generated message." & vbNewLine & vbNewLine _
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1159,12 +1181,13 @@ YES_TO_ACCEPT:
                                 Exit Function
 
                             Else
+                                GoTo Jump_on_case_final
                                 'NO Appointment
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that you do not have any appointment for tomorrow." & vbNewLine _
                                 & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
                                 & "This is a system generated message." & vbNewLine & vbNewLine _
                                 & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & "Use your BPC points to pay for products or services. Don't forget to bring your BPC card! Ask us for more info."
+                                & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -1197,11 +1220,18 @@ Jump_on_case_1:
 
                         If Len(BranchDB.Trim) > 12 Then
 
-                            SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
-                            & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
-                            & "This is a system generated message. " & vbNewLine & vbNewLine _
-                            & "-" & BrnchInfo.Name & ", Belo Medical Group. " & vbNewLine & vbNewLine _
-                            & FooterInquiries
+                            'SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
+                            '& "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
+                            '& "This is a system generated message. " & vbNewLine & vbNewLine _
+                            '& "-" & BrnchInfo.Name & ", Belo Medical Group. " & vbNewLine & vbNewLine _
+                            '& FooterInquiries
+
+                            SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", " & vbNewLine & vbNewLine & "This is to acknowledge the receipt of your message. Please expect a call within 24 hours from our Patient Care Specialist to confirm that " & _
+                            "your request has been processed. " & vbNewLine & vbNewLine & "Thank you and have a Belo Beautiful Day!!!" & vbNewLine & vbNewLine _
+                           & "This is a system generated message. " & vbNewLine & vbNewLine _
+                           & "-" & BrnchInfo.Name & ", Belo Medical Group. " & vbNewLine & vbNewLine _
+                           & FooterInquiries
+
 
                             'sms_body, branchcode,px_id As String, sms_sender
                             messages_sms_in_branch(SMS.Trim, strAppCode(0), pxInf.ID, smsSender)

@@ -24,7 +24,7 @@ Module MySQLconnectionSetting
     Public S8 As String = "00:00:00"
     Public Stats As String = ""
 
-    Public Host As String = "192.168.100.250"
+    Public Host As String = "192.168.100.252"
     Public UserName As String = "admin"
     Public Password As String = "webdeveoper"
 
