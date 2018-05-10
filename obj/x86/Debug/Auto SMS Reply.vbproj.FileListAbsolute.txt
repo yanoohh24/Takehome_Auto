@@ -119,3 +119,16 @@ C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.exe
 C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.xml
 C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\BeloMedicalGroupSMS.pdb
 C:\Projects\ian\new\SMSAutoReply\obj\x86\Debug\Auto SMS Reply.vbprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\bin\Debug\BeloMedicalGroupSMS.exe.config
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.exe
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.xml
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.pdb
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\Auto SMS Reply.vbprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.Form1.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.frmCatchError.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.frmGSMSetting.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.frmIssuedCard.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.frmLogin.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.frmAutoSMSReply.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\BeloMedicalGroupSMS.Resources.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\Auto SMS\auto-sms\obj\x86\Debug\Auto SMS Reply.vbproj.GenerateResource.Cache

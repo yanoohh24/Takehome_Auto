@@ -5,9 +5,9 @@ Public Class frmLogin
 
     Private Sub btLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btLogin.Click
         Try
-            Host = "192.168.100.250" '192.168.100.250"
-            UserName = "admin"
-            Password = "webdeveoper"
+            Host = "192.168.100.172" '192.168.100.250"
+            UserName = "root" '"admin"
+            Password = "belo" '"webdeveoper"
 
             connStrBMG = "Database=belo_database;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
             connStrSMS = "Database=Messages;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
