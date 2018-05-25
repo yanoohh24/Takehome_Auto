@@ -24,18 +24,22 @@ Module MySQLconnectionSetting
     Public S8 As String = "00:00:00"
     Public Stats As String = ""
 
-    Public Host As String = "192.168.100.252"
-    Public UserName As String = "admin"
-    Public Password As String = "webdeveoper"
+    'Public Host As String = "192.168.100.252"
+    'Public UserName As String = "admin"
+    'Public Password As String = "webdeveoper"
+
+    Public Host As String = "192.168.100.172"
+    Public UserName As String = "root"
+    Public Password As String = "belo"
 
     Public DatabaseMFC As String = "mfc"
 
     Public connStrMFC As String = "Database=mfc;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
     Public connStrASC As String = "Database=asc;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
 
-    Public connStrBMG As String = "Database=belo_database;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
-    Public connStrSMS As String = "Database=Messages;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
-    Public connStrAND As String = "Database=androidbelo;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800;Convert Zero Datetime=True"
+    Public connStrBMG As String = "Database=belo_test;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
+    Public connStrSMS As String = "Database=belo_test;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
+    Public connStrAND As String = "Database=androidbelo_test;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800;Convert Zero Datetime=True"
 
     Public smsFormat As String = "To inquire, please reply <HELP> for more information."
 

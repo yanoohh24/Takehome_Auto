@@ -17,7 +17,6 @@ Public Class frmAutoSMSReply
     Dim cbxLocation As String
     Dim ItemID As Integer = 0
     Dim pxName As String
-
     Dim strConnectionString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source="
     Dim conStringPath As String
     Dim provider As String
@@ -50,19 +49,40 @@ Public Class frmAutoSMSReply
             MBchk = Mid(MBchk, 1, 4)
             SMSmsg = Replace(msg, "'", "\'")
 
-            If MBchk = "+639" Then
+            'OLD DATABASE TYPE = 2 : SMS
+            'NEW DATABASE TYPEID = 1 : SMS
+            if not instr(1,MBchk,"+") and Len(EmpMobile) = 12 then
+                EmpMobile = "+" & EmpMobile
+                query = "INSERT INTO `Messages` SET DirectionID=2, TypeID=1, StatusDetailsID=200, StatusID=1, ChannelID=0, ToAddress='" & EmpMobile & "', " _
+                        & " Body='" & SMSmsg & "',validity=" & Validity & ", branch='" & branch & "', PatientID='" & PatientID & "', Username='AutoSMS', UserHostName='" & ClientHostName & "', UserHostIP='" & ClientHostIP & "'"
+
+                Dim rowsEffected As Integer = 0
+                Dim connection As New MySqlConnection(connStrSMS)
+                Dim cmd As New MySqlCommand(query, connection)
+                    
+                connection.Open()
+
+                rowsEffected = cmd.ExecuteNonQuery()
+
+                connection.Close()
+
+                Return rowsEffected
+            elseIf  MBchk = "+639" then
                 'Or MBchk = "+63906" Or MBchk = "+63915" Or MBchk = "+63916" Or MBchk = "+63917" Or MBchk = "+63926" _
                 'Or MBchk = "+63935" Or MBchk = "+63936" Or MBchk = "+63937" Or MBchk = "+63994" Or MBchk = "+63927" Or MBchk = "+63996" _
                 'Or MBchk = "+63997" Or MBchk = "+63817" Then 'Globe Only
 
                 If Len(EmpMobile) = 13 Then
-                    query = "INSERT INTO Messages SET Direction=2, Type=2, StatusDetails=200, Status=1, ChannelID=0, Recipient='" & EmpMobile & "', " _
+                    'query = "INSERT INTO Messages SET Direction=2, Type=2, StatusDetails=200, Status=1, ChannelID=0, Recipient='" & EmpMobile & "', " _
+                    '& " Body='" & SMSmsg & "',validity=" & Validity & ", branch='" & branch & "', PatientID='" & PatientID & "', Username='AutoSMS', UserHostName='" & ClientHostName & "', UserHostIP='" & ClientHostIP & "'"
+
+                    query = "INSERT INTO Messages SET DirectionID=2, TypeID=1, StatusDetailsID=200, StatusID=1, ChannelID=0, ToAddress='" & EmpMobile & "', " _
                     & " Body='" & SMSmsg & "',validity=" & Validity & ", branch='" & branch & "', PatientID='" & PatientID & "', Username='AutoSMS', UserHostName='" & ClientHostName & "', UserHostIP='" & ClientHostIP & "'"
 
                     Dim rowsEffected As Integer = 0
                     Dim connection As New MySqlConnection(connStrSMS)
                     Dim cmd As New MySqlCommand(query, connection)
-
+                    
                     connection.Open()
 
                     rowsEffected = cmd.ExecuteNonQuery()
@@ -97,13 +117,11 @@ Public Class frmAutoSMSReply
     Private Sub MySQL_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         ListViewHeaderTitle()
-
         Timer1.Enabled = True
 
         end_footer()
 
         lbTime.Text = "00"
-
         provider = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source ="
         dataFile = "C:\Users\Jimmy\Desktop\Products.accdb" ' 
         connString = provider & dataFile
@@ -139,7 +157,7 @@ Public Class frmAutoSMSReply
                     Dim ls As New ListViewItem(iGLCount.ToString())
                     ls.SubItems.Add(reader.Item("id").ToString())
                     ls.SubItems.Add(reader.Item("body").ToString())
-                    ls.SubItems.Add(reader.Item("sender").ToString())
+                    ls.SubItems.Add(reader.Item("FromAddress").ToString())
                     lvLogs.Items.Add(ls)
                 End While
                 lbStatus.Text = ""
@@ -158,15 +176,19 @@ Public Class frmAutoSMSReply
     End Sub
 
     Private Sub btSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btSearch.Click
-        query = "SELECT id,body,sender FROM `Messages` WHERE direction=1 AND TYPE=2 ORDER BY id DESC LIMIT 0,20"
+        'query = "SELECT id,body,sender FROM `Messages` WHERE direction=1 AND TYPE=2 ORDER BY id DESC LIMIT 0,20"
+        query = "SELECT id,body,FromAddress FROM `Messages` WHERE directionID=1 AND TYPEID=1 ORDER BY id DESC LIMIT 0,20"
         retriveDataReadToListView()
     End Sub
 
     Private Sub btViewAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btViewAll.Click
         Timer1.Enabled = False
         lbStatus.Text = ""
-        query = "SELECT id,body,sender FROM `Messages` WHERE direction=1 AND TYPE=2 AND stats LIKE '%new%'"
+        'query = "SELECT id,body,FromAddress FROM `Messages` WHERE direction=1 AND TYPE=2 AND stats LIKE '%new%'"
+        query = "SELECT id,body,FromAddress FROM `Messages` WHERE directionID=1 AND TYPEID=1 AND stats LIKE '%new%'"
+        'DISPLAY RECEIVED TEXT IN LISTVIEW
         retriveDataReadToListView()
+        'IF MESSAGE COUNT > 1
         btRead_Click(Me, EventArgs.Empty)
         Timer1.Enabled = True
     End Sub
@@ -284,6 +306,7 @@ Public Class frmAutoSMSReply
             Dim id As String = item.SubItems(1).Text.Trim
             Dim sms As String = item.SubItems(2).Text.Trim
             Dim smsSender As String = item.SubItems(3).Text.Trim
+            'SPLIT MESSAGES FOR VALIDATING (AND WHAT MESSAGE WILL BE SENT)
             SplitSMS(sms, smsSender, id)
         Next
     End Sub
@@ -320,6 +343,7 @@ Public Class frmAutoSMSReply
         pxappt_count = 0
 
         SMS = SMS.ToString.Trim
+        'CHECKPATIENTID
         Patient_ID(pxInf, smsSender)
 
 
@@ -351,8 +375,8 @@ exp_number:
         '-----end of updates----
 
         If SMS Is Nothing Then
-            CommandXpertSMS(smsFormat, 0, "", "", smsSender)
-            UpdateSMS_ID("UPDATE `Messages` SET Stats='read' WHERE id='" & ID & "'")
+            CommandXpertSMS(smsFormat, 0, "", "", smsSender)                            'Messages ( Database : Messages )
+            UpdateSMS_ID("UPDATE `Messages` SET Stats='read' WHERE id='" & ID & "'")    
             Exit Function
         End If
 
@@ -418,25 +442,25 @@ exp_number:
                         Dim updateSMSAlert As String = smsSender
                         updateSMSAlert = Mid(smsSender, 4, 10)
 
-                        'If SMS_Alert_OFF(updateSMSAlert) > 0 Then
-                        '    SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
-                        '    & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
-                        '    & "This is a system generated message. " & vbNewLine & vbNewLine _
-                        '    & FooterInquiries
+                        If SMS_Alert_OFF(updateSMSAlert) > 0 Then
+                            SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
+                            & "Thank you and have a Belo Beautiful `! " & vbNewLine & vbNewLine _
+                            & "This is a system generated message. " & vbNewLine & vbNewLine _
+                            & FooterInquiries
                         'Else
                         '    SMS_out = "Your " & smsSender & " mobile number is not registed on our database." & vbNewLine _
                         '    & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
                         '    & "This is a system generated message. " & vbNewLine & vbNewLine _
                         '    & FooterInquiries
 
-                        'End If
+                        End If
 
-                         SMS_Alert_OFF(updateSMSAlert) > 0 Then
-                            SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
-                                      & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
-                                      & "This is a system generated message. " & vbNewLine & vbNewLine _
-                                      & FooterInquiries
-
+                        'SMS_Alert_OFF(updateSMSAlert) > 0 Then
+                        '    SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
+                        '             & "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
+                        '             & "This is a system generated message. " & vbNewLine & vbNewLine _
+                        '             & FooterInquiries
+                        
                         messages_sms_in(SMS.Trim, "", pxInf.ID, smsSender)
                         messages_sms_out(SMS_out.Trim, "", pxInf.ID, smsSender)
                         CommandXpertSMS(SMS_out.Trim, 0, "", pxInf.ID, smsSender)
@@ -473,8 +497,9 @@ exp_number:
                 Dim strAppCode() As String
                 strAppCode = SMS.Split(" ")
                 Dim getresult As String = Replace(strAppCode(0), "'", "")
-
-                query = "select code from ref_branch where autosms = '1' and code = '" & getresult & "'"
+                query = ""
+                'query = "select code from ref_branch where autosms = '1' and code = '" & getresult & "'"
+                query = "select id from `branches` where id = '" & getresult & "'"
                 Dim connection3 As New MySqlConnection(connStrBMG)
                 Dim cmd3 As New MySqlCommand(query, connection3)
                 Dim reader3 As MySqlDataReader
@@ -511,11 +536,13 @@ Approved_branch:
                         'Case "01 Nqwe", "04 Nqwe", "07 Nqwe"
                     Case "01 NO", "02 NO", "03 NO", "04 NO", "05 NO", "06 NO", "07 NO", "08 NO", "09 NO", "10 NO", "11 NO", "12 NO", "13 NO", "14 NO", "15 NO", "22 NO"
                         AppointmentSchedule = "no"
+                        'NOBRANCH
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
 
                         If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
+                            'SEARCH APPOINTMENT IN MESSAGES_SMS
                             Dim check_appointment As String = searchAppointment(smsSender, False, pxInf.IDNO)
 
                             If check_appointment = "invalid_keyword" Then
@@ -537,8 +564,8 @@ Approved_branch:
                            & FooterInquiries
 
 
-                                messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
-                                messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
+                                messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)        'Belo_database ( Messages_SMS )
+                                messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)        'Messages ( Database : Messages ) 
 
                                 CommandXpertSMS(SMS_out, 0, brnchCode, pxInf.ID, smsSender)
                                 UpdateSMS_ID("UPDATE `Messages` SET Stats='read',branch='" & brnchCode & "', PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
@@ -630,7 +657,9 @@ Approved_branch:
                         Dim BrnchInfo As BranchName_DB
                       
                         If pxInf.IDNO.Length > 0 Then
+                            'CHECK APPOINTMENT IN MESSAGES_SMS
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
+                            'Search for Today's Appointments 
                             Dim check_appointment As String = searchAppointment(smsSender, True, pxInf.IDNO)
 
                             If check_appointment = "invalid_keyword" Then
@@ -735,7 +764,7 @@ Approved_branch:
                                 UpdateSMS_ID("UPDATE `Messages` SET Stats='read',branch='" & brnchCode & "', PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
                                 Exit Function
 
-                                'more than 1 appointment
+                                'MORE THAN ONE APPOINTMENT
                             ElseIf check_appointment = "CONFIRMED_3" And pxappt_count > 1 Then
 
                                 'CONFIRMED_3
@@ -798,7 +827,7 @@ Approved_branch:
                                 UpdateSMS_ID("UPDATE `Messages` SET Stats='read',branch='" & brnchCode & "', PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
                                 Exit Function
 
-                                'more than 1 appointment
+                                'MORE THAN ONE APPOINTMENT
                             ElseIf check_appointment = "CANCELLED" And pxappt_count_cancel > 1 Then
                                 'CANCELLED
 
@@ -854,11 +883,13 @@ Approved_branch:
 
                         ' Case "01 DENYqwe", "04 DENYqwe", "07 DENYqwe"
                     Case "01 DENY", "02 DENY", "03 DENY", "04 DENY", "05 DENY", "06 DENY", "07 DENY", "08 DENY", "09 DENY", "10 DENY", "11 DENY", "12 DENY", "13 DENY", "14 DENY", "15 DENY", "22 DENY"
+                        'BRANCHDENY
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
 
                         If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
+                            'CHECKDENY
                             Dim check_appointment As String = searchAppointmentTomorrow(smsSender, False, pxInf.IDNO)
 
                             If check_appointment = "invalid_keyword" Then
@@ -996,16 +1027,17 @@ Approved_branch:
 
 
                         ' Case "01 ACCEPTqwe", "04 ACCEPTqwe", "07 ACCEPTqwe"
+
                     Case "01 ACCEPT", "02 ACCEPT", "03 ACCEPT", "04 ACCEPT", "05 ACCEPT", "06 ACCEPT", "07 ACCEPT", "08 ACCEPT", "09 ACCEPT", "10 ACCEPT", "11 ACCEPT", "12 ACCEPT", "13 ACCEPT", "14 ACCEPT", "15 ACCEPT", "22 ACCEPT"
 YES_TO_ACCEPT:
                         yestoaccept = False
                         Dim brnchCode As String = SMS_branchCode(SMS)
                         Dim BrnchInfo As BranchName_DB
-
+                        'BRANCHACCEPT   
                         If pxInf.IDNO.Length > 0 Then
                             Dim BranchDB As String = BranchCode(BrnchInfo, brnchCode)
                             Dim check_appointment As String = searchAppointmentTomorrow(smsSender, True, pxInf.IDNO)
-
+                            'CHECKACCEPT
                             If check_appointment = "invalid_keyword" Then
                                 GoTo Jump_on_case_final
                             End If
@@ -1059,10 +1091,10 @@ YES_TO_ACCEPT:
                              & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
-                                messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
-                                messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
-
-                                CommandXpertSMS(SMS_out, 0, brnchCode, pxInf.ID, smsSender)
+                                messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)        '
+                                messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)        '
+                                
+                                CommandXpertSMS(SMS_out, 0, brnchCode, pxInf.ID, smsSender)             'Messages ( Database : Messages )
                                 UpdateSMS_ID("UPDATE `Messages` SET Stats='read',branch='" & brnchCode & "', PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
                                 Exit Function
 
@@ -1263,10 +1295,10 @@ Jump_on_case_final:
                         & vbNewLine & vbNewLine & FooterInquiries
 
                         'Invalid Function for in only
-                        messages_sms_in_invalid(SMS.Trim, pxInf.ID, smsSender)
-                        messages_sms_out(SMS_out.Trim, "", pxInf.ID, smsSender)
+                        messages_sms_in_invalid(SMS.Trim, pxInf.ID, smsSender)      'Belo_Database (Messages_SMS)
+                        messages_sms_out(SMS_out.Trim, "", pxInf.ID, smsSender)     'Belo_Database (Messages_SMS)
 
-                        CommandXpertSMS(SMS_out.Trim, 1, "", pxInf.ID, smsSender)
+                        CommandXpertSMS(SMS_out.Trim, 1, "", pxInf.ID, smsSender)   'Message (Database : Messages)
                         UpdateSMS_ID("UPDATE `Messages` SET Stats='read', validity=1, PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
                 End Select
 
@@ -1278,7 +1310,7 @@ Jump_on_case_final:
 
         Dim SMSpxMobile As String = Mid(pxMobile, 4, 10)
 
-        sql = "SELECT PatientID, CONCAT(firstname, ' ', lastname) pxName, gender FROM `patient_info` WHERE REPLACE(REPLACE(mobile,' ',''),'.','') LIKE '%" & Replace(SMSpxMobile, "'", "\'") & "%'"
+        sql = "SELECT Patient_ID ,CONCAT(first_name, ' ' ,last_name) pxName, gender FROM `patient` WHERE REPLACE(REPLACE(mobile_number,' ',''),'.','') LIKE '%" & Replace(SMSpxMobile, "'", "\'") & "%'"
         'MsgBox(sql)
         Dim connection As New MySqlConnection(connStrBMG)
         Dim cmd As New MySqlCommand(sql, connection)
@@ -1286,10 +1318,10 @@ Jump_on_case_final:
 
         connection.Open()
         reader = cmd.ExecuteReader()
-
+        'on Error Resume next
         If reader.HasRows = True Then
             While reader.Read
-                Destination.ID = reader.Item("PatientID").ToString()
+                Destination.ID = reader.Item("Patient_ID").ToString()
                 Destination.IDNO = Destination.ID
                 Patient_ID = Destination.ID
                 Destination.Name = reader.Item("pxName").ToString()
@@ -1317,9 +1349,10 @@ Jump_on_case_final:
             End If
 
             BrchCode = Replace(BrchCode.Trim, "'", "\'")
-
-            sql = "SELECT ip,username,password,port,code,name,db_name FROM ref_branch WHERE code='" & BrchCode & "'"
-
+            'REMOVED db_name,code
+            'sql = "SELECT ip,username,password,port,code,name,db_name FROM ref_branch WHERE code='" & BrchCode & "'"
+            sql = ""
+            sql = "SELECT ip,username,password,port,id,name FROM branches WHERE id='" & BrchCode & "'"
             Dim connection As New MySqlConnection(connStrBMG)
             Dim cmd As New MySqlCommand(sql, connection)
             Dim reader As MySqlDataReader
@@ -1329,9 +1362,9 @@ Jump_on_case_final:
 
             If reader.HasRows = True Then
                 While reader.Read
-                    Destination.Code = reader.Item("code").ToString()
+                    Destination.Code = reader.Item("id").ToString()
                     Destination.Name = reader.Item("name").ToString()
-                    Destination.db_name = reader.Item("db_name").ToString()
+                    Destination.db_name = "appointment" 'reader.Item("db_name").ToString()
 
                     branch_ip = reader.Item("ip").ToString()
                     branch_un = reader.Item("username").ToString()
@@ -1352,7 +1385,7 @@ Jump_on_case_final:
     End Function
     Function AppointmentBranch(ByVal BranchDB_NAME As String, ByVal px_ID As String) As Integer
         Dim sql As String = ""
-
+        'CHECK # OF APPOINTMENTS
         sql = "SELECT COUNT(id) AS id FROM " & BranchDB_NAME & " WHERE DAY(appointment_date)>=DAY(NOW()) AND MONTH(appointment_date)>=MONTH(NOW()) " _
             & " AND YEAR(appointment_date)>=YEAR(NOW()) AND patientid='" & px_ID & "'"
         'MsgBox(sql)
@@ -1451,7 +1484,7 @@ Jump_on_case_final:
             sms_body = Replace(sms_body, "'", "\'")
             MBchk = Mid(MBchk, 1, 4)
 
-            If MBchk = "+639" Then
+            If MBchk = "+639" or instr(1,MBchk,"639") Then
                 sql = "INSERT INTO `messages_sms` SET Direction=2, Read_Stats=1, sender='" & sms_sender & "',body='" & sms_body & "',PatientID='" & px_id & "',branch='" & branchcode & "',DeptKey='" & branchcode & "',Username='AutoSMS', UserHostName='" & ClientHostName & "', UserHostIP='" & ClientHostIP & "'"
 
                 Dim rowsEffected As Integer = 0
@@ -1522,7 +1555,7 @@ Jump_on_case_final:
             sms_body = Replace(sms_body, "'", "\'")
 
             MBchk = Mid(MBchk, 1, 4)
-            If MBchk = "+639" Then
+            If MBchk = "+639" or Mid(MBchk,1,3) = "639" Then                                 
                 sql = "INSERT INTO `messages_sms` SET Direction=2, sender='" & sms_sender & "',body='" & sms_body & "',branch='" & Branch_code & "', PatientID='" & px_id & "', " _
                 & " Username='AutoSMS', UserHostName='" & ClientHostName & "', UserHostIP='" & ClientHostIP & "'"
 
@@ -1590,7 +1623,7 @@ Jump_on_case_final:
 
         lbTime.Text = Format(Now(), "ss")
 
-        If Format(Now(), "HH:mm:ss") = "02:00:00" Then
+        If Format(Now(), "HH:mm:ss") = "2:00:00" Then
             belo_module.SynchronizeDatabaseMessages()
             Exit Sub
         End If
@@ -1601,7 +1634,9 @@ Jump_on_case_final:
         End If
 
         If Format(Now(), "ss") = 15 Or Format(Now(), "ss") = 30 Or Format(Now(), "ss") = 45 Then
+            'VIEW RECEIVED MESSAGES
             btViewAll_Click(Me, EventArgs.Empty)
+            'SEND MESSAGE TO SENDER
             btResendAll_Click(Me, EventArgs.Empty)
             smS_no = ""
         Else
@@ -1668,10 +1703,9 @@ Jump_on_case_final:
         Dim sql As String
 
         Timer1.Enabled = False
-
-        sql = "UPDATE messages SET StatusDetails=200, STATUS=1, ChannelID=0, MessageReference='', SentTimeSecs=0, ReceivedTimeSecs=0, ScheduledTimeSecs=0, " _
-        & "LastUpdateSecs=0, BodyFormat=0, CustomField1=0, CustomField2='', sysCreator=0, sysArchive=0, sysLock=0, sysHash='', sysForwarded=0, " _
-        & "sysGwReference='', Header='' WHERE Direction=2 AND TYPE=2 AND STATUS=3"
+        'DELETE (  sysForwarded=0;sysGwReference='' ) doesn't Exist in Database
+        sql = "UPDATE `messages` SET StatusDetailsID=200, STATUSID=1, ChannelID=0, MessageReference='', SentTimeSecs=0, ReceivedTimeSecs=0, ScheduledTimeSecs=0, " _
+        & "LastUpdateSecs=0, BodyFormatID=0, CustomField1=0, CustomField2='', sysCreator=0, sysArchive=0, sysLock=0, sysHash='', Header='' WHERE DirectionID=2 AND TYPEID=2 AND STATUSID=3"
         SMS_UPDATE(sql)
 
         Timer1.Enabled = True
@@ -1802,7 +1836,7 @@ Jump_on_case_final:
     Dim mousex As Integer
     Dim mousey As Integer
 
-    'Move FORM WHeN PANEL MOVED
+    'MOVE FORM WHEN PANEL MOVED
     Private Sub Panel2_MouseDown(sender As Object, e As MouseEventArgs)
         drag = True 'Sets the variable drag to true.
         mousex = Windows.Forms.Cursor.Position.X - Me.Left 'Sets variable mousex

@@ -57,35 +57,35 @@ Partial Class frmAutoSMSReply
         Me.btRestartServiceSMS = New System.Windows.Forms.Button()
         Me.btResendAll = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        Me.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout
+        Me.StatusStrip1.SuspendLayout
+        Me.Panel1.SuspendLayout
+        Me.SuspendLayout
         '
         'btSearch
         '
         Me.btSearch.BackColor = System.Drawing.Color.Teal
         Me.btSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btSearch.ForeColor = System.Drawing.Color.White
         Me.btSearch.Location = New System.Drawing.Point(23, 88)
         Me.btSearch.Name = "btSearch"
         Me.btSearch.Size = New System.Drawing.Size(96, 23)
         Me.btSearch.TabIndex = 2
         Me.btSearch.Text = "Inbox SMS"
-        Me.btSearch.UseVisualStyleBackColor = False
+        Me.btSearch.UseVisualStyleBackColor = false
         '
         'lvLogs
         '
         Me.lvLogs.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.No, Me.ID, Me.SMS, Me.mobile})
-        Me.lvLogs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lvLogs.FullRowSelect = True
-        Me.lvLogs.GridLines = True
+        Me.lvLogs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.lvLogs.FullRowSelect = true
+        Me.lvLogs.GridLines = true
         Me.lvLogs.Location = New System.Drawing.Point(23, 117)
         Me.lvLogs.Name = "lvLogs"
         Me.lvLogs.Size = New System.Drawing.Size(537, 276)
         Me.lvLogs.TabIndex = 4
-        Me.lvLogs.UseCompatibleStateImageBehavior = False
+        Me.lvLogs.UseCompatibleStateImageBehavior = false
         Me.lvLogs.View = System.Windows.Forms.View.Details
         '
         'No
@@ -112,23 +112,23 @@ Partial Class frmAutoSMSReply
         '
         Me.btViewAll.BackColor = System.Drawing.Color.Teal
         Me.btViewAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btViewAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btViewAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btViewAll.ForeColor = System.Drawing.Color.White
         Me.btViewAll.Location = New System.Drawing.Point(423, 88)
         Me.btViewAll.Name = "btViewAll"
         Me.btViewAll.Size = New System.Drawing.Size(122, 23)
         Me.btViewAll.TabIndex = 3
         Me.btViewAll.Text = "View and Send"
-        Me.btViewAll.UseVisualStyleBackColor = False
+        Me.btViewAll.UseVisualStyleBackColor = false
         '
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.White
-        Me.ToolStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStrip1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripSplitButton1, Me.ViewToolStripSplitButton2, Me.ToolStripSetting, Me.ToolStripPB, Me.ToolStripSplitButton1})
         Me.ToolStrip1.Location = New System.Drawing.Point(20, 60)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(525, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(541, 25)
         Me.ToolStrip1.TabIndex = 11
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -136,8 +136,8 @@ Partial Class frmAutoSMSReply
         '
         Me.FileToolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.FileToolStripSplitButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExtractToExcelToolStripMenuItem, Me.ToolStripTextBox1, Me.ToolStripSeparator1, Me.CloseToolStripMenuItem})
-        Me.FileToolStripSplitButton1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FileToolStripSplitButton1.Image = CType(resources.GetObject("FileToolStripSplitButton1.Image"), System.Drawing.Image)
+        Me.FileToolStripSplitButton1.Font = New System.Drawing.Font("Calibri", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.FileToolStripSplitButton1.Image = CType(resources.GetObject("FileToolStripSplitButton1.Image"),System.Drawing.Image)
         Me.FileToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.FileToolStripSplitButton1.Name = "FileToolStripSplitButton1"
         Me.FileToolStripSplitButton1.Size = New System.Drawing.Size(41, 22)
@@ -145,14 +145,14 @@ Partial Class frmAutoSMSReply
         '
         'ExtractToExcelToolStripMenuItem
         '
-        Me.ExtractToExcelToolStripMenuItem.Enabled = False
+        Me.ExtractToExcelToolStripMenuItem.Enabled = false
         Me.ExtractToExcelToolStripMenuItem.Name = "ExtractToExcelToolStripMenuItem"
         Me.ExtractToExcelToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.ExtractToExcelToolStripMenuItem.Text = "Extract to Excel"
         '
         'ToolStripTextBox1
         '
-        Me.ToolStripTextBox1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripTextBox1.Font = New System.Drawing.Font("Calibri", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
         Me.ToolStripTextBox1.Size = New System.Drawing.Size(100, 22)
         Me.ToolStripTextBox1.Text = "Synchronize"
@@ -164,7 +164,7 @@ Partial Class frmAutoSMSReply
         '
         'CloseToolStripMenuItem
         '
-        Me.CloseToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CloseToolStripMenuItem.Font = New System.Drawing.Font("Calibri", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
         Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.CloseToolStripMenuItem.Text = "Close"
@@ -173,8 +173,8 @@ Partial Class frmAutoSMSReply
         '
         Me.ViewToolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.ViewToolStripSplitButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IssuedCardToolStripMenuItem, Me.SyToolStripMenuItem})
-        Me.ViewToolStripSplitButton2.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ViewToolStripSplitButton2.Image = CType(resources.GetObject("ViewToolStripSplitButton2.Image"), System.Drawing.Image)
+        Me.ViewToolStripSplitButton2.Font = New System.Drawing.Font("Calibri", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ViewToolStripSplitButton2.Image = CType(resources.GetObject("ViewToolStripSplitButton2.Image"),System.Drawing.Image)
         Me.ViewToolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ViewToolStripSplitButton2.Name = "ViewToolStripSplitButton2"
         Me.ViewToolStripSplitButton2.Size = New System.Drawing.Size(48, 22)
@@ -208,8 +208,8 @@ Partial Class frmAutoSMSReply
         'ToolStripSetting
         '
         Me.ToolStripSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripSetting.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStripSetting.Image = CType(resources.GetObject("ToolStripSetting.Image"), System.Drawing.Image)
+        Me.ToolStripSetting.Font = New System.Drawing.Font("Calibri", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ToolStripSetting.Image = CType(resources.GetObject("ToolStripSetting.Image"),System.Drawing.Image)
         Me.ToolStripSetting.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripSetting.Name = "ToolStripSetting"
         Me.ToolStripSetting.Size = New System.Drawing.Size(46, 22)
@@ -226,8 +226,8 @@ Partial Class frmAutoSMSReply
         '
         Me.ToolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.ToolStripSplitButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem, Me.ErrorsToolStripMenuItem})
-        Me.ToolStripSplitButton1.Font = New System.Drawing.Font("Calibri", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStripSplitButton1.Image = CType(resources.GetObject("ToolStripSplitButton1.Image"), System.Drawing.Image)
+        Me.ToolStripSplitButton1.Font = New System.Drawing.Font("Calibri", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.ToolStripSplitButton1.Image = CType(resources.GetObject("ToolStripSplitButton1.Image"),System.Drawing.Image)
         Me.ToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripSplitButton1.Name = "ToolStripSplitButton1"
         Me.ToolStripSplitButton1.Size = New System.Drawing.Size(52, 22)
@@ -251,13 +251,13 @@ Partial Class frmAutoSMSReply
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ServerIPToolStripStatusLabel, Me.TotalCountToolStripStatusLabel})
         Me.StatusStrip1.Location = New System.Drawing.Point(20, 433)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(525, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(541, 22)
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ServerIPToolStripStatusLabel
         '
-        Me.ServerIPToolStripStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ServerIPToolStripStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.ServerIPToolStripStatusLabel.ForeColor = System.Drawing.Color.White
         Me.ServerIPToolStripStatusLabel.Name = "ServerIPToolStripStatusLabel"
         Me.ServerIPToolStripStatusLabel.Size = New System.Drawing.Size(53, 17)
@@ -265,7 +265,7 @@ Partial Class frmAutoSMSReply
         '
         'TotalCountToolStripStatusLabel
         '
-        Me.TotalCountToolStripStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TotalCountToolStripStatusLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TotalCountToolStripStatusLabel.ForeColor = System.Drawing.Color.White
         Me.TotalCountToolStripStatusLabel.Name = "TotalCountToolStripStatusLabel"
         Me.TotalCountToolStripStatusLabel.Size = New System.Drawing.Size(66, 17)
@@ -275,20 +275,20 @@ Partial Class frmAutoSMSReply
         '
         Me.btRead.BackColor = System.Drawing.Color.Teal
         Me.btRead.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btRead.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btRead.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btRead.ForeColor = System.Drawing.Color.White
         Me.btRead.Location = New System.Drawing.Point(286, 88)
         Me.btRead.Name = "btRead"
         Me.btRead.Size = New System.Drawing.Size(121, 23)
         Me.btRead.TabIndex = 18
         Me.btRead.Text = "Read SMS"
-        Me.btRead.UseVisualStyleBackColor = False
-        Me.btRead.Visible = False
+        Me.btRead.UseVisualStyleBackColor = false
+        Me.btRead.Visible = false
         '
         'lbStatus
         '
-        Me.lbStatus.AutoSize = True
-        Me.lbStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbStatus.AutoSize = true
+        Me.lbStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.lbStatus.Location = New System.Drawing.Point(17, 418)
         Me.lbStatus.Name = "lbStatus"
         Me.lbStatus.Size = New System.Drawing.Size(41, 15)
@@ -301,36 +301,36 @@ Partial Class frmAutoSMSReply
         '
         'lbTime
         '
-        Me.lbTime.AutoSize = True
-        Me.lbTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbTime.AutoSize = true
+        Me.lbTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.lbTime.Location = New System.Drawing.Point(178, 418)
         Me.lbTime.Name = "lbTime"
         Me.lbTime.Size = New System.Drawing.Size(35, 15)
         Me.lbTime.TabIndex = 20
         Me.lbTime.Text = "Time"
-        Me.lbTime.Visible = False
+        Me.lbTime.Visible = false
         '
         'btRestartServiceSMS
         '
-        Me.btRestartServiceSMS.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btRestartServiceSMS.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btRestartServiceSMS.Location = New System.Drawing.Point(427, 428)
         Me.btRestartServiceSMS.Name = "btRestartServiceSMS"
         Me.btRestartServiceSMS.Size = New System.Drawing.Size(112, 23)
         Me.btRestartServiceSMS.TabIndex = 71
         Me.btRestartServiceSMS.Text = "RestartServiceSMS"
-        Me.btRestartServiceSMS.UseVisualStyleBackColor = True
-        Me.btRestartServiceSMS.Visible = False
+        Me.btRestartServiceSMS.UseVisualStyleBackColor = true
+        Me.btRestartServiceSMS.Visible = false
         '
         'btResendAll
         '
-        Me.btResendAll.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btResendAll.Font = New System.Drawing.Font("Calibri", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.btResendAll.Location = New System.Drawing.Point(287, 428)
         Me.btResendAll.Name = "btResendAll"
         Me.btResendAll.Size = New System.Drawing.Size(75, 23)
         Me.btResendAll.TabIndex = 72
         Me.btResendAll.Text = "Resend All"
-        Me.btResendAll.UseVisualStyleBackColor = True
-        Me.btResendAll.Visible = False
+        Me.btResendAll.UseVisualStyleBackColor = true
+        Me.btResendAll.Visible = false
         '
         'Panel1
         '
@@ -342,13 +342,13 @@ Partial Class frmAutoSMSReply
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(54, 32)
         Me.Panel1.TabIndex = 73
-        Me.Panel1.Visible = False
+        Me.Panel1.Visible = false
         '
         'frmAutoSMSReply
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(565, 475)
+        Me.ClientSize = New System.Drawing.Size(581, 475)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.btSearch)
         Me.Controls.Add(Me.lbTime)
@@ -358,19 +358,19 @@ Partial Class frmAutoSMSReply
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.btRead)
         Me.Controls.Add(Me.lvLogs)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
+        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
+        Me.MaximizeBox = false
+        Me.MinimizeBox = false
         Me.Name = "frmAutoSMSReply"
-        Me.Resizable = False
+        Me.Resizable = false
         Me.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow
         Me.Text = "Auto SMS Reply"
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.ResumeLayout(False)
+        Me.ToolStrip1.ResumeLayout(false)
+        Me.ToolStrip1.PerformLayout
+        Me.StatusStrip1.ResumeLayout(false)
+        Me.StatusStrip1.PerformLayout
+        Me.Panel1.ResumeLayout(false)
+        Me.ResumeLayout(false)
         Me.PerformLayout
 
 End Sub

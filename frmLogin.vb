@@ -5,12 +5,16 @@ Public Class frmLogin
 
     Private Sub btLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btLogin.Click
         Try
-            Host = "192.168.100.172" '192.168.100.250"
-            UserName = "root" '"admin"
-            Password = "belo" '"webdeveoper"
+            'Host = "192.168.100.250"
+            'UserName = "admin"
+            'Password = "webdeveoper"
 
-            connStrBMG = "Database=belo_database;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
-            connStrSMS = "Database=Messages;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
+            Host = "192.168.100.172" 
+            UserName = "root" 
+            Password = "belo" 
+
+            connStrBMG = "Database=belo_test;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
+            connStrSMS = "Database=belo_test;Data Source=" & Host & ";User Id=" & UserName & ";Password=" & Password & ";UseCompression=True;Connection Timeout=28800"
 
             'RegistryRecordLogin()
             FFAutoSMS.Show()
@@ -83,9 +87,13 @@ Public Class frmLogin
             regKey.CreateSubKey("BeloSMSAuto")
             regKey = Registry.LocalMachine.OpenSubKey("SYSTEM\BeloSMSAuto", True)
 
-            UserName = "admin"
-            Password = "webdeveoper"
-            Host = "192.168.100.250"
+            'UserName = "admin"
+            'Password = "webdeveoper"
+            'Host = "192.168.100.250"
+
+            UserName = "root"
+            Password = "belo"
+            Host = "192.168.100.172"
 
             regKey.SetValue("smsusername", UserName)
             regKey.SetValue("smspassword", Password)

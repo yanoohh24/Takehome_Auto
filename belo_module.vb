@@ -31,6 +31,7 @@ Module belo_module
         SMS_brnchWord = strArr(1)
     End Sub
     Function SMS_branchCode(ByVal sms As String) As String
+        'CHECK BRANCH CODE
         Select Case StrConv(sms.Trim, VbStrConv.Uppercase)
             Case "01 YES", "01 NO", "01 ACCEPT", "01 DENY"
                 SMS_branchCode = "01"
@@ -104,7 +105,7 @@ Module belo_module
         Dim appoinmentBranch As String = ""
         Dim query As String = ""
 
-        'yes
+        'YES
         Try
 
 
@@ -114,7 +115,7 @@ Module belo_module
             ' query = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') as appointment_date, appointment_time, remarks FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND " _
             '& " DATE(doc)=DATE(NOW()) AND DATE(appointment_date)=DATE(NOW()) AND appointment_id>0 AND remarks LIKE '%today%' GROUP BY PatientID"
 
-
+            'SEARCH APPOINTMENTS IN SENT MESSAGES ( messages_sms )
             query = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') as appointment_date, appointment_time, remarks FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND " _
        & " DATE(doc)=DATE(NOW()) AND DATE(appointment_date)=DATE(NOW()) AND appointment_id>0 AND remarks LIKE '%today%'"
 
@@ -147,6 +148,7 @@ Module belo_module
                 connection.Close()
 
                 If YesNo = True Then
+                    'CHECK BRANCH DATABASE FOR APPOINTMENT_DATE
                     If Not pxBranch Is Nothing Then
                         AppointmentSchedule = pxAppointmentDate & " at " & pxAppointmentTime
                         AppointmentScheduleTime = pxAppointmentTime
@@ -161,7 +163,6 @@ Module belo_module
                 End If
                 reader.Close()
             Else
-
 
                 query = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') AS appointment_date, appointment_time, remarks,doc FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND DATE(appointment_date) =CURDATE() + INTERVAL 1 DAY AND appointment_id>0 AND remarks LIKE '%tomorrow%'"
 
@@ -322,14 +323,14 @@ confirmed:
             Case Else
                 AppointmentDatabaseName = "x"
         End Select
-
+        AppointmentDatabaseName = "appointments"
         Try
 
-
+            'COUNTRECORDS==
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and start_at = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and DATE(start_at) = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
             End If
 
             Dim connection3 As New MySqlConnection(connStrBMG)
@@ -349,12 +350,12 @@ confirmed:
             Else
                 connection3.Close()
             End If
-
+            
 
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled'"
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and start_at = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled'"
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled'"
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and DATE(start_at) = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled'"
             End If
 
             Dim connection2 As New MySqlConnection(connStrBMG)
@@ -366,7 +367,7 @@ confirmed:
             reader2 = cmd2.ExecuteReader()
 
             If reader2.HasRows = True Then
-
+                'READ APPOINTMENT COUNT
                 While reader2.Read
                     pxappt_count = reader2.Item(0).ToString()
                 End While
@@ -374,11 +375,13 @@ confirmed:
             Else
                 connection2.Close()
             End If
+            'END COUNTRECORDS==
+
 
             If yesaccept = "yes" Then
-                query = "SELECT appointment_status, confirmation_status,branch,date_updated,sts FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " ORDER BY id DESC"
+                query = "SELECT appointment_status, confirmation_status,branch,updated_at FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " ORDER BY id DESC"
             Else
-                query = "SELECT appointment_status, confirmation_status,branch,date_updated,sts FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and appointment_date = '" & tomorrow & "' ORDER BY id DESC"
+                query = "SELECT appointment_status, confirmation_status,branch,updated_at FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and DATE(start_at) = '" & tomorrow & "' ORDER BY id DESC"
             End If
 
             Dim today As String = CDate(FormatDateTime(DateTime.Now, DateFormat.ShortDate)).ToString("yyyy-MM-dd")
@@ -390,7 +393,7 @@ confirmed:
 
             connection.Open()
             reader = cmd.ExecuteReader()
-            Dim date_updated As Date
+            Dim updated_at As Date
             If reader.HasRows = True Then
 
                 While reader.Read
@@ -398,10 +401,10 @@ confirmed:
                     confirmationStatus = reader.Item("confirmation_status").ToString()
                     appoinmentBranch = reader.Item("branch").ToString()
                     Try
-                        sts = reader.Item("sts").ToString()
-                        date_updated = reader.Item("date_updated")
+                        'sts = reader.Item("sts").ToString()
+                        updated_at = reader.Item("updated_at")
                     Catch ex As Exception
-
+                        '//IGNORED
                     End Try
 
                 End While
@@ -443,7 +446,7 @@ noappt:
                         Select Case StrConv(confirmationStatus.Trim, VbStrConv.Uppercase)
                             Case "CONFIRMED"
 
-                                If date_updated = today Then
+                                If updated_at = today Then
                                     appoinmentStatus = "CONFIRMED_2"
 
                                 ElseIf sts = "Confirmed" Then
@@ -456,12 +459,12 @@ noappt:
 
                             Case Else
 updte:
-                                sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
+                                sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', updated_at=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'yyyy-mm-dd %h:%i:%s %p') WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                 BMG_UPDATE(sql)
 
                                 checkBranch(branchCode, sql)
                                 If yesaccept = "accept" Then
-                                    sql = "UPDATE " & AppointmentDatabaseName & " SET sts = 'Confirmed' WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
+                                    sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status = 'Confirmed' WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                     'sql = "UPDATE messages_sms SET sts = 'Confirmed' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                                     BMG_UPDATE(sql)
                                     checkBranch(branchCode, sql)
@@ -546,14 +549,14 @@ change_stats:
             Case Else
                 AppointmentDatabaseName = "x"
         End Select
-
+        AppointmentDatabaseName = "appointments"
         Try
 
-
+            'COUNTDENYRECORDS==
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and DATE(start_at) = '" & AppointmentDate & "' AND `appointment_status` = 'Cancelled' "
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and DATE(start_at) = '" & tomorrow & "' AND `appointment_status` = 'Cancelled' "
             End If
             Dim connection4 As New MySqlConnection(connStrBMG)
             Dim cmd4 As New MySqlCommand(query, connection4)
@@ -590,15 +593,15 @@ change_stats:
             'End If
 
             If yesaccept = "yes" Then
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and DATE(start_at) = '" & AppointmentDate & "' AND `appointment_status` <> 'Cancelled' "
             Else
-                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patientid='" & pxId & "' and appointment_date = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled' "
+                query = "SELECT count(*) FROM " & AppointmentDatabaseName & " WHERE Patient_id='" & pxId & "' and DATE(start_at) = '" & tomorrow & "' AND `appointment_status` <> 'Cancelled' "
             End If
             Dim connection2 As New MySqlConnection(connStrBMG)
             Dim cmd2 As New MySqlCommand(query, connection2)
             Dim reader2 As MySqlDataReader
             Dim sql2 As String = ""
-
+            
             connection2.Open()
             reader2 = cmd2.ExecuteReader()
 
@@ -610,12 +613,12 @@ change_stats:
             Else
                 connection2.Close()
             End If
-
+            'END COUNTDENYRECORDS
 
             If yesaccept = "yes" Then
                 query = "SELECT appointment_status,branch FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & ""
             Else
-                query = "SELECT appointment_status,branch FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and appointment_date = '" & tomorrow & "'"
+                query = "SELECT appointment_status,branch FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and DATE(start_at) = '" & tomorrow & "'"
             End If
             Dim connection As New MySqlConnection(connStrBMG)
             Dim cmd As New MySqlCommand(query, connection)
@@ -647,7 +650,7 @@ change_stats:
                         End If
 
 
-                        sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', date_updated=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'%h:%i:%s %p') WHERE Patientid='" & pxId & "' AND DATE(appointment_date)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
+                        sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', updated_at=DATE_FORMAT(NOW(),'yyyy-mm-dd %h:%i:%s %p') WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
                         BMG_UPDATE(sql)
                      
                         checkBranch(branchCode, sql)
@@ -715,7 +718,7 @@ change_stats:
 
         Try
             Dim rowsEffected As Integer = 0
-            Dim connection As New MySqlConnection("Database=belo_database;Data Source= " & branch_ip & ";User Id=" & branch_un & " ;Password= " & branch_pass & " ;Port=" & branch_port & ";UseCompression=True;Connection Timeout=28800;Convert Zero Datetime=True")
+            Dim connection As New MySqlConnection("Database=belo_test;Data Source= " & branch_ip & ";User Id=" & branch_un & " ;Password= " & branch_pass & " ;Port=" & branch_port & ";UseCompression=True;Connection Timeout=28800;Convert Zero Datetime=True")
             Dim cmd As New MySqlCommand(query, connection)
 
             connection.Open()
@@ -730,12 +733,15 @@ change_stats:
     End Function
 
     Public Sub SynchronizeDatabaseMessages()
+        'REMOVED sysGwReference,sysForwarded (doesn't exist in current database)
+        'CHANGED Sender : Recipient to FromAddress : ToAddress
+
         Dim Qone As String = "INSERT INTO messages_archive (ID, Direction, TYPE, StatusDetails,STATUS,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
-        & " ScheduledTimeSecs,LastUpdateSecs,Sender,Recipient,SUBJECT,BodyFormat,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash,sysForwarded, " _
-        & " sysGwReference,Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks) " _
-        & " SELECT ID, Direction, TYPE, StatusDetails,STATUS,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
-        & " ScheduledTimeSecs,LastUpdateSecs,Sender,Recipient,SUBJECT,BodyFormat,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash,sysForwarded, " _
-        & " sysGwReference,Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks FROM `messages` WHERE DATE(doc)<DATE(NOW()) AND id NOT IN (SELECT id FROM `messages_archive` WHERE DATE(doc)<DATE(NOW()))"
+        & " ScheduledTimeSecs,LastUpdateSecs,Sender,Recipient,SUBJECT,BodyFormat,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash, " _
+        & " Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks) " _
+        & " SELECT ID, DirectionID, TYPEID, StatusDetailsID,STATUSID,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
+        & " ScheduledTimeSecs,LastUpdateSecs,ToAddress,FromAddress,Subject,BodyFormatID,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash, " _
+        & " Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks FROM `messages` WHERE DATE(doc)<DATE(NOW()) AND id NOT IN (SELECT id FROM `messages_archive` WHERE DATE(doc)<DATE(NOW()))"
 
         On Error Resume Next
 
@@ -766,7 +772,7 @@ change_stats:
         connection.Open()
         rowsEffected = cmd.ExecuteNonQuery()
         connection.Close()
-
+        'DELETE RECORDS FROM THE LAST 20 DAYS
         If rowsEffected > 0 Then
             BMG_UPDATE("DELETE FROM `messages_sms` WHERE DATE(doc) <= (SELECT DATE_SUB(MAX(DATE(doc)), INTERVAL 20 DAY) FROM `messages_sms_archive`)")
         End If

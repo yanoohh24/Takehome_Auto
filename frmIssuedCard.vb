@@ -142,7 +142,7 @@ Public Class frmIssuedCard
                 messages_sms_out(txtIssuedDate.Text, pxID, "BPC", txtMobile.Text.Trim)
                 CommandXpertSMS_BD(txtIssuedDate.Text.Trim, pxID, "BPC", txtMobile.Text.Trim)
 
-                sql = "UPDATE `loyalty_card_info` SET sms_stat=1 WHERE PatientID='" & pxID & "'"
+                sql = "UPDATE `loyalty_card_info` SET sms_stat=1 WHERE Patient_id='" & pxId & "'"
                 SMS_UPDATE_Loyalty(sql)
 
             End If
@@ -158,13 +158,14 @@ Public Class frmIssuedCard
         Dim MBchk As String = EmpMobile
         MBchk = Mid(MBchk, 1, 4)
         SMSmsg = Replace(msg, "'", "\'")
-
+        'OLD DATABASE TYPE = 2 : SMS
+        'NEW DATABASE TYPEID = 1 : SMS
         Try
             If MBchk = "+639" Then
 
                 If Len(EmpMobile.Trim) = 13 Then
 
-                    query = "INSERT INTO Messages SET Direction=2, Type=2, StatusDetails=200, Status=1, ChannelID=0, " _
+                    query = "INSERT INTO Messages SET DirectionID=2, TypeID=1, StatusDetailsID=200, StatusID=1, ChannelID=0, " _
                     & " Recipient='" & EmpMobile & "', Body='" & SMSmsg & "', branch='" & px_branchCode & "', PatientID='" & px_id & "', Username='AutoSMS', UserHostName='" & ClientHostName & "', UserHostIP='" & ClientHostIP & "'"
 
                     Dim rowsEffected As Integer = 0
