@@ -493,6 +493,7 @@ exp_number:
                         GoTo Jump_on_case_1
                 End Select
             Case 2
+                'CHECKBRANCHES
                 Dim hasRows As Boolean = False
                 Dim strAppCode() As String
                 strAppCode = SMS.Split(" ")
@@ -905,10 +906,10 @@ Approved_branch:
                                 '& "-" & BrnchInfo.Name & ", Belo Medical Group."
 
                                 SMS_out = "Thank you for your immediate response " & PX_MrMs(pxInf.Gender) & pxInf.Name & ". Your appointment for tomorrow at " & AppointmentScheduleTime & " has been cancelled." & vbNewLine _
-                               & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                               & "This is a system generated message." & vbNewLine & vbNewLine _
-                               & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
-                                & FooterInquiries
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & FooterInquiries   
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
                                 messages_sms_out_branch(SMS_out, brnchCode, pxInf.ID, smsSender)
@@ -942,9 +943,9 @@ Approved_branch:
                                 '& "-" & BrnchInfo.Name & ", Belo Medical Group."
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that your requested appointment for tomorrow at " & AppointmentScheduleTime & " has been cancelled based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -958,9 +959,9 @@ Approved_branch:
                             ElseIf check_appointment = "CANCELLED_2" And pxappt_count_cancel > 1 Then
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that all your requested appointments for tomorrow have been cancelled based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1086,9 +1087,9 @@ YES_TO_ACCEPT:
                                 '& "-" & BrnchInfo.Name & ", Belo Medical Group."
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that your requested appointment for tomorrow at " & AppointmentScheduleTime & " has been confirmed based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)        '
@@ -1108,9 +1109,9 @@ YES_TO_ACCEPT:
                                 '& "-" & BrnchInfo.Name & ", Belo Medical Group."
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that all your requested appointments for tomorrow have been confirmed based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1129,9 +1130,9 @@ YES_TO_ACCEPT:
                                 '& "-" & BrnchInfo.Name & ", Belo Medical Group."
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that your requested appointment for tomorrow at " & AppointmentScheduleTime & " has been confirmed based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1147,9 +1148,9 @@ YES_TO_ACCEPT:
                                 'CONFIRMED_3
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that all your requested appointments for tomorrow have been confirmed based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1168,9 +1169,9 @@ YES_TO_ACCEPT:
                                 '& "-" & BrnchInfo.Name & ", Belo Medical Group."
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that your requested appointment for tomorrow at " & AppointmentScheduleTime & " has been cancelled based on your previous response to our SMS confirmation." & vbNewLine _
-                           & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                           & "This is a system generated message." & vbNewLine & vbNewLine _
-                           & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1184,9 +1185,9 @@ YES_TO_ACCEPT:
                                 'CANCELLED
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that all your requested appointments for tomorrow have been cancelled based on your previous response to our SMS confirmation." & vbNewLine _
-                           & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                           & "This is a system generated message." & vbNewLine & vbNewLine _
-                           & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1200,9 +1201,9 @@ YES_TO_ACCEPT:
 
 
                                 SMS_out = "Good day, " & PX_MrMs(pxInf.Gender) & pxInf.Name & ", we would like to inform you that your requested appointment for tomorrow at " & AppointmentScheduleTime & " has been cancelled based on your previous response to our SMS confirmation." & vbNewLine _
-                             & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
-                             & "This is a system generated message." & vbNewLine & vbNewLine _
-                             & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
+                                & "Thank you and have a Belo Beautiful Day!" & vbNewLine & vbNewLine _
+                                & "This is a system generated message." & vbNewLine & vbNewLine _
+                                & "-" & BrnchInfo.Name & ", Belo Medical Group." & vbNewLine & vbNewLine _
                                 & FooterInquiries
 
                                 messages_sms_in_branch(SMS.Trim, brnchCode, pxInf.ID, smsSender)
@@ -1248,10 +1249,10 @@ Jump_on_case_1:
                 Select Case strAppCode.Length
                     Case 1
                         Dim BrnchInfo As BranchName_DB
-                        Dim BranchDB As String = BranchCode(BrnchInfo, strAppCode(0))
-
-                        If Len(BranchDB.Trim) > 12 Then
-
+                        Dim BranchDB As String = strconv(BranchCode(BrnchInfo, strAppCode(0)),VbStrConv.uppercase)
+                        'BranchChange
+                        'If Len(BranchDB.Trim) > 12 Then
+                        if BranchDB = "APPOINTMENT" then
                             'SMS_out = "Hi " & PX_MrMs(pxInf.Gender) & pxInf.Name & "! Your message is acknowledged!" & vbNewLine _
                             '& "Thank you and have a Belo Beautiful Day! " & vbNewLine & vbNewLine _
                             '& "This is a system generated message. " & vbNewLine & vbNewLine _
@@ -1299,7 +1300,8 @@ Jump_on_case_final:
                         messages_sms_out(SMS_out.Trim, "", pxInf.ID, smsSender)     'Belo_Database (Messages_SMS)
 
                         CommandXpertSMS(SMS_out.Trim, 1, "", pxInf.ID, smsSender)   'Message (Database : Messages)
-                        UpdateSMS_ID("UPDATE `Messages` SET Stats='read', validity=1, PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
+                        'UpdateSMS_ID("UPDATE `Messages` SET Stats='read', validity=1, PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
+                        UpdateSMS_ID("UPDATE `Messages` SET Read_stats=1, validity=1, PatientID='" & pxInf.ID & "' WHERE id='" & ID & "'")
                 End Select
 
         End Select
@@ -1349,10 +1351,9 @@ Jump_on_case_final:
             End If
 
             BrchCode = Replace(BrchCode.Trim, "'", "\'")
-            'REMOVED db_name,code
+            'REMOVED db_name,code,username,password
             'sql = "SELECT ip,username,password,port,code,name,db_name FROM ref_branch WHERE code='" & BrchCode & "'"
-            sql = ""
-            sql = "SELECT ip,username,password,port,id,name FROM branches WHERE id='" & BrchCode & "'"
+            sql = "SELECT ip,port,id,name FROM branches WHERE id='" & BrchCode & "'"
             Dim connection As New MySqlConnection(connStrBMG)
             Dim cmd As New MySqlCommand(sql, connection)
             Dim reader As MySqlDataReader
@@ -1367,8 +1368,8 @@ Jump_on_case_final:
                     Destination.db_name = "appointment" 'reader.Item("db_name").ToString()
 
                     branch_ip = reader.Item("ip").ToString()
-                    branch_un = reader.Item("username").ToString()
-                    branch_pass = reader.Item("password").ToString()
+                    'branch_un = reader.Item("username").ToString()
+                    'branch_pass = reader.Item("password").ToString()
                     branch_port = reader.Item("port").ToString()
                     BranchCode = Destination.db_name
                 End While
@@ -1767,7 +1768,8 @@ Jump_on_case_final:
         Try
             Dim sql As String = ""
 
-            sql = "SELECT end_footer FROM sms_autoreply_footer WHERE id=1"
+            'sql = "SELECT end_footer FROM `belo_database`.`sms_autoreply_footer` WHERE id=1"
+            sql = "SELECT template FROM template where type = 'AutoSMS' and Location = 'Footer'"
             Dim connection As New MySqlConnection(connStrBMG)
             Dim cmd As New MySqlCommand(sql, connection)
             Dim reader As MySqlDataReader
@@ -1777,7 +1779,7 @@ Jump_on_case_final:
 
             If reader.HasRows = True Then
                 While reader.Read
-                    FooterInquiries = reader.Item("end_footer").ToString()
+                    FooterInquiries = reader.Item("template").ToString()
                     end_footer = FooterInquiries
                 End While
             Else

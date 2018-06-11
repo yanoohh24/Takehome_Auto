@@ -203,7 +203,7 @@ confirmed:
             'Dim querys As String = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') as appointment_date, appointment_time, remarks FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND " _
             '& " DATE(doc)=DATE(NOW()) AND appointment_id>0 AND remarks LIKE '%tomorrow%' AND appointment_id=(SELECT MAX(appointment_id) FROM messages_sms WHERE PatientID=" & PxIdNumber & ") GROUP BY PatientID"
 
-            Dim query As String = "SELECT PatientID,branch,Sender,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') as appointment_date, appointment_time, remarks FROM `messages_sms` WHERE Sender LIKE '%" & sender & "%' AND direction=2 AND " _
+            Dim query As String = "SELECT PatientID,branch,fromAddress,appointment_id,DATE_FORMAT(appointment_date,'%Y-%m-%d') as appointment_date, appointment_time, remarks FROM `messages` WHERE FromAddress LIKE '%" & sender & "%' AND DirectionID=2 AND " _
           & " DATE(doc)=DATE(NOW()) AND appointment_id>0 AND remarks LIKE '%tomorrow%'"
 
             Dim pxId As String = ""
@@ -225,7 +225,7 @@ confirmed:
                 While reader.Read
                     pxId = reader.Item("PatientID").ToString()
                     pxBranch = reader.Item("branch").ToString()
-                    pxSender = reader.Item("Sender").ToString()
+                    pxSender = reader.Item("FromAddress").ToString()
                     pxAppointmentId = reader.Item("appointment_id").ToString()
                     pxAppointmentDate = reader.Item("appointment_date").ToString()
                     pxappt_date = reader.Item("appointment_date").ToString()
@@ -379,9 +379,9 @@ confirmed:
 
 
             If yesaccept = "yes" Then
-                query = "SELECT appointment_status, confirmation_status,branch,updated_at FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " ORDER BY id DESC"
+                query = "SELECT appointment_status, confirmation_status,branch,updated_at,appointment_status FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " ORDER BY id DESC"
             Else
-                query = "SELECT appointment_status, confirmation_status,branch,updated_at FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and DATE(start_at) = '" & tomorrow & "' ORDER BY id DESC"
+                query = "SELECT appointment_status, confirmation_status,branch,IFNUll(updated_at,'0000-00-00 00:00:00'),appointment_status FROM " & AppointmentDatabaseName & " WHERE id=" & AppointmentId & " and DATE(start_at) = '" & tomorrow & "' ORDER BY id DESC"
             End If
 
             Dim today As String = CDate(FormatDateTime(DateTime.Now, DateFormat.ShortDate)).ToString("yyyy-MM-dd")
@@ -449,7 +449,7 @@ noappt:
                                 If updated_at = today Then
                                     appoinmentStatus = "CONFIRMED_2"
 
-                                ElseIf sts = "Confirmed" Then
+                                ElseIf confirmationStatus = "Confirmed" Then
                                     appoinmentStatus = "CONFIRMED_1"
                                     GoTo updte
                                 Else
@@ -458,13 +458,14 @@ noappt:
                                 End If
 
                             Case Else
-updte:
-                                sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', updated_at=DATE(NOW()), time_updated=DATE_FORMAT(NOW(),'yyyy-mm-dd %h:%i:%s %p') WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
+updte:                           
+                                'update_at = DATE_FORMAT(NOW(),'yyyy-mm-dd %h:%i:%s %p') OLD UPDATE FORMAT
+                                sql = "UPDATE " & AppointmentDatabaseName & " SET confirmation_status='Confirmed', updated_by='Belo SMS', updated_at=NOW() WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                 BMG_UPDATE(sql)
 
                                 checkBranch(branchCode, sql)
                                 If yesaccept = "accept" Then
-                                    sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status = 'Confirmed' WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
+                                    sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status = 'Confirmed', WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled'  and appointment_status <> 'Completed'"
                                     'sql = "UPDATE messages_sms SET sts = 'Confirmed' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                                     BMG_UPDATE(sql)
                                     checkBranch(branchCode, sql)
@@ -644,13 +645,14 @@ change_stats:
                     Case Else
 
                         If yesaccept = "accept" Then
+
                             sql = "UPDATE messages_sms SET sts = 'Cancelled' WHERE appointment_id = '" & AppointmentId & "' and remarks = 'tomorrow'"
                             BMG_UPDATE(sql)
                             checkBranch(branchCode, sql)
                         End If
 
-
-                        sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', updated_at=DATE_FORMAT(NOW(),'yyyy-mm-dd %h:%i:%s %p') WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
+                        'update_at = DATE_FORMAT(NOW(),'yyyy-mm-dd %h:%i:%s %p') OLD UPDATE FORMAT
+                        sql = "UPDATE " & AppointmentDatabaseName & " SET appointment_status='Cancelled', updated_by='Belo SMS', updated_at=NOW() WHERE Patient_id='" & pxId & "' AND DATE(start_at)='" & AppointmentDate & "' and appointment_status <> 'Cancelled' "
                         BMG_UPDATE(sql)
                      
                         checkBranch(branchCode, sql)
@@ -736,12 +738,12 @@ change_stats:
         'REMOVED sysGwReference,sysForwarded (doesn't exist in current database)
         'CHANGED Sender : Recipient to FromAddress : ToAddress
 
-        Dim Qone As String = "INSERT INTO messages_archive (ID, Direction, TYPE, StatusDetails,STATUS,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
+        Dim Qone As String = "INSERT INTO `belo_database`.`messages_archive` (ID, Direction, TYPE, StatusDetails,STATUS,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
         & " ScheduledTimeSecs,LastUpdateSecs,Sender,Recipient,SUBJECT,BodyFormat,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash, " _
         & " Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks) " _
         & " SELECT ID, DirectionID, TYPEID, StatusDetailsID,STATUSID,ChannelID,MessageReference,SentTimeSecs,ReceivedTimeSecs," _
         & " ScheduledTimeSecs,LastUpdateSecs,ToAddress,FromAddress,Subject,BodyFormatID,CustomField1,CustomField2,sysCreator,sysArchive,sysLock,sysHash, " _
-        & " Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks FROM `messages` WHERE DATE(doc)<DATE(NOW()) AND id NOT IN (SELECT id FROM `messages_archive` WHERE DATE(doc)<DATE(NOW()))"
+        & " Header,Body,Trace,Stats,validity,branch,PatientID,Username,UserHostName,UserHostIP,doc,appointment_id,appointment_branch,appointment_date,remarks FROM `messages` WHERE DATE(doc)<DATE(NOW()) AND id NOT IN (SELECT id FROM `belo_database`.`messages_archive` WHERE DATE(doc)<DATE(NOW()))"
 
         On Error Resume Next
 
@@ -753,7 +755,7 @@ change_stats:
         connection.Close()
 
         If rowsEffected > 0 Then
-            SMS_UPDATE("DELETE FROM `messages` WHERE DATE(doc) <= (SELECT DATE_SUB(MAX(DATE(doc)), INTERVAL 20 DAY) FROM `messages_archive`)")
+            SMS_UPDATE("DELETE FROM `messages` WHERE DATE(doc) <= (SELECT DATE_SUB(MAX(DATE(doc)), INTERVAL 20 DAY) FROM `belo_database`.`messages_archive`)")
         End If
 
         LogsCreate("messages", rowsEffected)

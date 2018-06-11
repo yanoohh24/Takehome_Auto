@@ -24,15 +24,15 @@ Partial Class frmCatchError
     Private Sub InitializeComponent()
         Me.txtCatchErrors = New System.Windows.Forms.TextBox()
         Me.btCancel = New System.Windows.Forms.Button()
-        Me.SuspendLayout()
+        Me.SuspendLayout
         '
         'txtCatchErrors
         '
         Me.txtCatchErrors.BackColor = System.Drawing.SystemColors.HighlightText
         Me.txtCatchErrors.Location = New System.Drawing.Point(12, 12)
-        Me.txtCatchErrors.Multiline = True
+        Me.txtCatchErrors.Multiline = true
         Me.txtCatchErrors.Name = "txtCatchErrors"
-        Me.txtCatchErrors.ReadOnly = True
+        Me.txtCatchErrors.ReadOnly = true
         Me.txtCatchErrors.Size = New System.Drawing.Size(660, 354)
         Me.txtCatchErrors.TabIndex = 0
         '
@@ -43,24 +43,24 @@ Partial Class frmCatchError
         Me.btCancel.Size = New System.Drawing.Size(75, 23)
         Me.btCancel.TabIndex = 1
         Me.btCancel.Text = "Cancel"
-        Me.btCancel.UseVisualStyleBackColor = True
+        Me.btCancel.UseVisualStyleBackColor = true
         '
         'frmCatchError
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(684, 401)
         Me.Controls.Add(Me.btCancel)
         Me.Controls.Add(Me.txtCatchErrors)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.MinimizeBox = False
+        Me.MinimizeBox = false
         Me.Name = "frmCatchError"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frmCatchError"
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents txtCatchErrors As System.Windows.Forms.TextBox
     Friend WithEvents btCancel As System.Windows.Forms.Button
 End Class
